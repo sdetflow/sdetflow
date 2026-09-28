@@ -34,6 +34,11 @@ Do not paste these values into chat or source control.
 
 ## GPG signing
 
+Release signing identity:
+
+- Maintainer: `Sumanth Gumedelli <sumantthh@gmail.com>`
+- Public key fingerprint: `00980AF13E4B4F694FDB9B491CBF27780FEA8FFE`
+
 Maven Central requires signatures for the POM and release artifacts.
 
 Create a release signing key, publish the public key to a public OpenPGP key service, and add the private key plus passphrase to GitHub Actions secrets:
