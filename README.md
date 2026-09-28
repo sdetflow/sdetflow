@@ -18,7 +18,7 @@ SDETFlow is a multi-language quality-engineering ecosystem focused on reusable a
 | [`@sdetflow/playwright`](https://www.npmjs.com/package/@sdetflow/playwright) | Playwright diagnostics, smart locator fallback, evidence capture, retries, test data, optional AI hooks | 0.2.0 |
 | [`@sdetflow/ai`](https://www.npmjs.com/package/@sdetflow/ai) | Provider-agnostic GenAI + Agentic AI quality engineering SDK with OpenAI/Gemini adapters, routing, budgets, analyzers, registered tools and approval gates | 0.2.0 |
 | [`@sdetflow/insights`](https://www.npmjs.com/package/@sdetflow/insights) | Playwright/JUnit/Cucumber/Allure normalization, flake scoring, clustering, trends and portable persistence | 0.2.0 |
-| `io.sdetflow:sdetflow-api` | Java 17 API automation SDK with safe retries, auth, JSON assertions and telemetry | 0.2.0 |
+| `io.github.sumanthh-sdet:sdetflow-api` | Java 17 API automation SDK with safe retries, auth, JSON assertions and telemetry | 0.2.0 |
 | [`sdet_flow`](https://rubygems.org/gems/sdet_flow) | Ruby quality-engineering Gem with API automation, retries, redaction and Capybara/Watir adapters | 0.2.0 |
 
 ## Engineering principles
