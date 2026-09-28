@@ -2,19 +2,21 @@
 
 SDETFlow's Java SDK is prepared for Maven Central as:
 
-`io.sdetflow:sdetflow-api:0.2.0`
+`io.github.sumanthh-sdet:sdetflow-api:0.2.0`
 
 The build already produces the required primary JAR, sources JAR, and Javadoc JAR. The release profile also configures GPG signing and the Sonatype Central Publishing Maven Plugin.
 
-## Namespace decision
+## Verified namespace
 
-The current groupId `io.sdetflow` requires a verified Maven Central namespace for `io.sdetflow`.
+The Central Portal account has a verified free GitHub namespace:
 
-The cleanest brand-preserving option is to control the domain `sdetflow.io` and verify it in the Central Portal using the DNS TXT verification value Sonatype provides.
+`io.github.sumanthh-sdet`
 
-If `sdetflow.io` will not be used, do **not** publish yet. First change the groupId to a namespace that the maintainer can verify. Sonatype commonly auto-provisions a namespace based on the GitHub identity used to sign in, such as `io.github.<github-user>`.
+The Java artifact therefore publishes as:
 
-Do not publish version 0.2.0 under a temporary namespace if the project intends to keep `io.sdetflow` long term.
+`io.github.sumanthh-sdet:sdetflow-api:0.2.0`
+
+The Java source package remains `io.sdetflow.api`. Maven publication coordinates do not need to match the Java package namespace.
 
 ## Central Portal account
 
