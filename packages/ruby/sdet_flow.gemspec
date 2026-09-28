@@ -15,6 +15,8 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     'source_code_uri' => 'https://github.com/sdetflow/sdetflow/tree/main/packages/ruby',
     'documentation_uri' => 'https://github.com/sdetflow/sdetflow/tree/main/packages/ruby#readme',
-    'bug_tracker_uri' => 'https://github.com/sdetflow/sdetflow/issues'
+    'bug_tracker_uri' => 'https://github.com/sdetflow/sdetflow/issues',
+    'changelog_uri' => 'https://github.com/sdetflow/sdetflow/releases',
+    'rubygems_mfa_required' => 'true'
   }
 end
