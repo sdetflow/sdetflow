@@ -1,10 +1,13 @@
 # SDETFlow
 
+[![SDETFlow CI](https://github.com/sdetflow/sdetflow/actions/workflows/ci.yml/badge.svg)](https://github.com/sdetflow/sdetflow/actions/workflows/ci.yml)
+[![Playwright Browser Matrix](https://github.com/sdetflow/sdetflow/actions/workflows/playwright-browser-matrix.yml/badge.svg)](https://github.com/sdetflow/sdetflow/actions/workflows/playwright-browser-matrix.yml)
+
 **Open-source test automation, GenAI-powered quality engineering, and Agentic AI tools by Sumanth Gumedelli.**
 
 SDETFlow is a multi-language quality-engineering ecosystem focused on reusable automation architecture rather than one-off test scripts. The v0.2 line contains independently consumable TypeScript/Playwright, GenAI + Agentic AI, test-intelligence, Java API, and Ruby automation libraries with deterministic behavior, privacy controls, packaging checks, and CI-ready documentation.
 
-> **Release status:** v0.2.0 is a production-oriented release candidate. Local package tests and clean-consumer packaging checks are green. Public registry publication follows GitHub browser-matrix and live-provider contract validation.
+> **Release status:** v0.2.0 is a production-oriented release candidate. GitHub CI, the Chromium/Firefox/WebKit browser matrix, local package tests, and clean-consumer packaging checks are green. Public registry publication follows live-provider contract validation and registry setup.
 
 ## Packages
 
@@ -45,6 +48,7 @@ The first command runs package test suites and website checks. The second builds
 
 Start with:
 - `docs/ARCHITECTURE.md`
+- `docs/AGENTIC-AI.md`
 - `docs/BUILD-STATUS.md`
 - `docs/test-specs/MASTER-TEST-SPEC.md`
 - `docs/PUBLISHING.md`
