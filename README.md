@@ -3,12 +3,13 @@
 [![SDETFlow CI](https://github.com/sdetflow/sdetflow/actions/workflows/ci.yml/badge.svg)](https://github.com/sdetflow/sdetflow/actions/workflows/ci.yml)
 [![Playwright Browser Matrix](https://github.com/sdetflow/sdetflow/actions/workflows/playwright-browser-matrix.yml/badge.svg)](https://github.com/sdetflow/sdetflow/actions/workflows/playwright-browser-matrix.yml)
 [![Public npm Consumer Smoke](https://github.com/sdetflow/sdetflow/actions/workflows/npm-public-smoke.yml/badge.svg)](https://github.com/sdetflow/sdetflow/actions/workflows/npm-public-smoke.yml)
+[![Public RubyGems Consumer Smoke](https://github.com/sdetflow/sdetflow/actions/workflows/ruby-public-smoke.yml/badge.svg)](https://github.com/sdetflow/sdetflow/actions/workflows/ruby-public-smoke.yml)
 
 **Open-source test automation, GenAI-powered quality engineering, and Agentic AI tools by Sumanth Gumedelli.**
 
 SDETFlow is a multi-language quality-engineering ecosystem focused on reusable automation architecture rather than one-off test scripts. The v0.2 line contains independently consumable TypeScript/Playwright, GenAI + Agentic AI, test-intelligence, Java API, and Ruby automation libraries with deterministic behavior, privacy controls, packaging checks, and CI-ready documentation.
 
-> **Release status:** the three SDETFlow npm packages are publicly published at v0.2.0 and have passed a clean public-registry consumer install/import smoke test. GitHub CI, the Chromium/Firefox/WebKit browser matrix, clean-consumer packaging checks, and live OpenAI/Gemini provider contracts are green. RubyGems and Maven Central publication are the remaining registry release gates.
+> **Release status:** the three SDETFlow npm packages and the `sdet_flow` RubyGem are publicly published at v0.2.0 and have passed clean public-registry consumer install/import smoke tests. GitHub CI, the Chromium/Firefox/WebKit browser matrix, clean-consumer packaging checks, and live OpenAI/Gemini provider contracts are green. Maven Central publication is the remaining registry release gate.
 
 ## Packages
 
@@ -18,7 +19,7 @@ SDETFlow is a multi-language quality-engineering ecosystem focused on reusable a
 | [`@sdetflow/ai`](https://www.npmjs.com/package/@sdetflow/ai) | Provider-agnostic GenAI + Agentic AI quality engineering SDK with OpenAI/Gemini adapters, routing, budgets, analyzers, registered tools and approval gates | 0.2.0 |
 | [`@sdetflow/insights`](https://www.npmjs.com/package/@sdetflow/insights) | Playwright/JUnit/Cucumber/Allure normalization, flake scoring, clustering, trends and portable persistence | 0.2.0 |
 | `io.sdetflow:sdetflow-api` | Java 17 API automation SDK with safe retries, auth, JSON assertions and telemetry | 0.2.0 |
-| `sdet_flow` | Ruby quality-engineering Gem with API automation, retries, redaction and Capybara/Watir adapters | 0.2.0 |
+| [`sdet_flow`](https://rubygems.org/gems/sdet_flow) | Ruby quality-engineering Gem with API automation, retries, redaction and Capybara/Watir adapters | 0.2.0 |
 
 ## Engineering principles
 
