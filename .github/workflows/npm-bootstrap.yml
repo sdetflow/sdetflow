@@ -1,0 +1,57 @@
+name: Bootstrap npm Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package to publish
+        required: true
+        default: playwright
+        type: choice
+        options:
+          - playwright
+          - ai
+          - insights
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Use current npm
+        run: npm install --global npm@latest
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+        working-directory: packages/${{ inputs.package }}
+
+      - name: Test package
+        run: npm test
+        working-directory: packages/${{ inputs.package }}
+
+      - name: Inspect package contents
+        run: npm pack --dry-run
+        working-directory: packages/${{ inputs.package }}
+
+      - name: Publish bootstrap release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --provenance
+        working-directory: packages/${{ inputs.package }}
+
+      - name: Verify public registry version
+        run: npm view @sdetflow/${{ inputs.package }} version
