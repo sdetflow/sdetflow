@@ -2,12 +2,8 @@ name: Publish Ruby Gem
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'ruby-v*'
-    paths:
-      - '.release/ruby-v0.2.0.trigger'
   workflow_dispatch:
 
 permissions:
