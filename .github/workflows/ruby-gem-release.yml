@@ -37,7 +37,9 @@ jobs:
         run: gem build sdet_flow.gemspec
         working-directory: packages/ruby
 
-      - name: Publish with RubyGems Trusted Publishing
-        uses: rubygems/release-gem@v1
-        with:
-          working-directory: packages/ruby
+      - name: Configure RubyGems trusted-publishing credentials
+        uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a
+
+      - name: Publish gem
+        run: gem push sdet_flow-0.2.0.gem
+        working-directory: packages/ruby
