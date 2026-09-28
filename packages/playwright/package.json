@@ -1,0 +1,69 @@
+{
+  "name": "@sdetflow/playwright",
+  "version": "0.2.0",
+  "description": "Production-oriented Playwright quality-engineering helpers: smart locators, diagnostics, redaction, evidence capture, test data, retries and optional GenAI hooks.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Sumanth Gumedelli",
+    "email": "sumantthh@gmail.com"
+  },
+  "keywords": [
+    "playwright",
+    "sdet",
+    "qa-automation",
+    "test-automation",
+    "quality-engineering",
+    "genai-testing",
+    "ai-testing",
+    "smart-locator",
+    "test-diagnostics"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.45.0"
+  },
+  "peerDependenciesMeta": {
+    "@playwright/test": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "check": "npm run test",
+    "prepack": "npm run check"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdetflow/sdetflow.git",
+    "directory": "packages/playwright"
+  },
+  "homepage": "https://github.com/sdetflow/sdetflow/tree/main/packages/playwright#readme",
+  "bugs": {
+    "url": "https://github.com/sdetflow/sdetflow/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
