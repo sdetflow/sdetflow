@@ -2,6 +2,11 @@ name: Playwright Browser Matrix
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/playwright/**'
+      - '.github/workflows/playwright-browser-matrix.yml'
   pull_request:
     paths:
       - 'packages/playwright/**'
