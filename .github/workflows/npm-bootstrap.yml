@@ -35,6 +35,14 @@ jobs:
       - name: Use current npm
         run: npm install --global npm@latest
 
+      - name: Read package identity
+        id: pkg
+        shell: bash
+        working-directory: packages/${{ inputs.package }}
+        run: |
+          echo "name=$(node -p "require('./package.json').name")" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
       - name: Install dependencies
         run: npm install --ignore-scripts
         working-directory: packages/${{ inputs.package }}
@@ -47,11 +55,42 @@ jobs:
         run: npm pack --dry-run
         working-directory: packages/${{ inputs.package }}
 
+      - name: Check whether this exact version is already public
+        id: existing
+        shell: bash
+        env:
+          PKG: ${{ steps.pkg.outputs.name }}
+          VERSION: ${{ steps.pkg.outputs.version }}
+        run: |
+          if npm view "$PKG@$VERSION" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "$PKG@$VERSION is already public; publish step will be skipped."
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish bootstrap release
+        if: steps.existing.outputs.published != 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access public --provenance
         working-directory: packages/${{ inputs.package }}
 
-      - name: Verify public registry version
-        run: npm view @sdetflow/${{ inputs.package }} version
+      - name: Verify public registry version with propagation retry
+        shell: bash
+        env:
+          PKG: ${{ steps.pkg.outputs.name }}
+          VERSION: ${{ steps.pkg.outputs.version }}
+        run: |
+          set -e
+          for attempt in {1..12}; do
+            found="$(npm view "$PKG@$VERSION" version --registry=https://registry.npmjs.org 2>/dev/null || true)"
+            if [[ "$found" == "$VERSION" ]]; then
+              echo "Verified public package: $PKG@$found"
+              exit 0
+            fi
+            echo "Registry has not propagated $PKG@$VERSION yet (attempt $attempt/12); waiting 10s..."
+            sleep 10
+          done
+          echo "Package publish may have succeeded, but public registry verification did not complete within 120 seconds."
+          exit 1
