@@ -3,7 +3,7 @@ set -euo pipefail
 
 NAME="Sumanth Gumedelli"
 EMAIL="sumantthh@gmail.com"
-UID="${NAME} <${EMAIL}>"
+SIGNING_UID="${NAME} <${EMAIL}>"
 OUT_DIR="${HOME}/Desktop/sdetflow-signing"
 
 if ! command -v gpg >/dev/null 2>&1; then
@@ -16,13 +16,13 @@ mkdir -p "$OUT_DIR"
 chmod 700 "$OUT_DIR"
 
 echo "Creating a primary RSA 3072 signing key for:"
-echo "  $UID"
+echo "  $SIGNING_UID"
 echo
 echo "GPG will ask you to protect the private key with a passphrase."
 echo "Use a strong passphrase and keep it private."
 echo
 
-gpg --quick-generate-key "$UID" rsa3072 sign 2y
+gpg --quick-generate-key "$SIGNING_UID" rsa3072 sign 2y
 
 FPR="$(gpg --list-secret-keys --with-colons "$EMAIL" | awk -F: '$1=="fpr"{print $10; exit}')"
 if [[ -z "$FPR" ]]; then
