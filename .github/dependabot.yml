@@ -2,19 +2,93 @@ version: 2
 updates:
   - package-ecosystem: npm
     directory: /packages/playwright
-    schedule: { interval: weekly }
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/Chicago
+    open-pull-requests-limit: 2
+    groups:
+      playwright-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: npm
     directory: /packages/ai
-    schedule: { interval: weekly }
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:10"
+      timezone: America/Chicago
+    open-pull-requests-limit: 2
+    groups:
+      ai-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: npm
     directory: /packages/insights
-    schedule: { interval: weekly }
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:20"
+      timezone: America/Chicago
+    open-pull-requests-limit: 2
+    groups:
+      insights-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: bundler
     directory: /packages/ruby
-    schedule: { interval: weekly }
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:30"
+      timezone: America/Chicago
+    open-pull-requests-limit: 2
+    groups:
+      ruby-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: maven
     directory: /packages/api-java
-    schedule: { interval: weekly }
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:40"
+      timezone: America/Chicago
+    open-pull-requests-limit: 2
+    groups:
+      java-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: github-actions
     directory: /
-    schedule: { interval: weekly }
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:50"
+      timezone: America/Chicago
+    open-pull-requests-limit: 1
+    groups:
+      github-actions:
+        patterns:
+          - "*"
