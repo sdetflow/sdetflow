@@ -7,7 +7,7 @@
 
 SDETFlow is a multi-language quality-engineering ecosystem focused on reusable automation architecture rather than one-off test scripts. The v0.2 line contains independently consumable TypeScript/Playwright, GenAI + Agentic AI, test-intelligence, Java API, and Ruby automation libraries with deterministic behavior, privacy controls, packaging checks, and CI-ready documentation.
 
-> **Release status:** v0.2.0 is a production-oriented release candidate. GitHub CI, the Chromium/Firefox/WebKit browser matrix, local package tests, and clean-consumer packaging checks are green. Public registry publication follows live-provider contract validation and registry setup.
+> **Release status:** v0.2.0 is a production-oriented release candidate. GitHub CI, the Chromium/Firefox/WebKit browser matrix, local package tests, clean-consumer packaging checks, and live OpenAI/Gemini provider contracts are green. Public registry publication now depends only on registry ownership/bootstrap and release approval.
 
 ## Packages
 
