@@ -1,0 +1,29 @@
+name: Live AI Provider Contracts
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-contracts:
+    runs-on: ubuntu-latest
+    environment: live-ai-contracts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+        working-directory: packages/ai
+      - run: npm test
+        working-directory: packages/ai
+      - name: Live contracts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SDETFLOW_OPENAI_MODEL: ${{ vars.SDETFLOW_OPENAI_MODEL }}
+          SDETFLOW_GEMINI_MODEL: ${{ vars.SDETFLOW_GEMINI_MODEL }}
+        run: node test-live/run.mjs
+        working-directory: packages/ai

@@ -1,0 +1,18 @@
+{
+  "name": "sdetflow-monorepo",
+  "private": true,
+  "version": "0.2.0",
+  "description": "SDETFlow \u2014 open-source automation platforms and GenAI-powered quality engineering tools by Sumanth Gumedelli.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "./scripts/verify-all.sh",
+    "verify:release": "./scripts/verify-release.sh",
+    "test:playwright": "npm test --workspace=@sdetflow/playwright",
+    "test:ai": "npm test --workspace=@sdetflow/ai",
+    "test:insights": "npm test --workspace=@sdetflow/insights"
+  },
+  "packageManager": "npm@10",
+  "repository": "https://github.com/sdetflow/sdetflow"
+}

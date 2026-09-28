@@ -1,0 +1,38 @@
+name: Playwright Browser Matrix
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'packages/playwright/**'
+      - '.github/workflows/playwright-browser-matrix.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  real-playwright:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install package dependencies
+        run: npm install
+        working-directory: packages/playwright
+      - name: Install Playwright Test and browser
+        run: |
+          npm install --no-save @playwright/test@latest
+          npx playwright install --with-deps ${{ matrix.browser }}
+        working-directory: packages/playwright
+      - name: Run package unit suite
+        run: npm test
+        working-directory: packages/playwright
+      - name: Real browser integration tests
+        run: npx playwright test -c test-browser/playwright.config.mjs --project=${{ matrix.browser }}
+        working-directory: packages/playwright

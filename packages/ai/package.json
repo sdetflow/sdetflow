@@ -1,0 +1,65 @@
+{
+  "name": "@sdetflow/ai",
+  "version": "0.2.0",
+  "description": "Provider-agnostic GenAI-powered quality engineering SDK with redaction, budgets, retries, fallback, circuit breaking and production-oriented SDET analyzers.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Sumanth Gumedelli",
+    "email": "sumantthh@gmail.com"
+  },
+  "keywords": [
+    "genai",
+    "quality-engineering",
+    "sdet",
+    "ai-testing",
+    "failure-triage",
+    "flaky-tests",
+    "openai",
+    "gemini",
+    "test-generation",
+    "log-analysis",
+    "accessibility-testing",
+    "llm-routing",
+    "provider-fallback"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "check": "npm run test",
+    "prepack": "npm run check"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdetflow/sdetflow.git",
+    "directory": "packages/ai"
+  },
+  "homepage": "https://github.com/sdetflow/sdetflow/tree/main/packages/ai#readme",
+  "bugs": {
+    "url": "https://github.com/sdetflow/sdetflow/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
