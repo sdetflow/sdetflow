@@ -1,0 +1,61 @@
+{
+  "name": "@sdetflow/insights",
+  "version": "0.2.0",
+  "description": "Test intelligence core for Playwright, JUnit, Cucumber and Allure: normalization, flaky-test scoring, failure clustering, trends and persistent JSONL storage.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Sumanth Gumedelli",
+    "email": "sumantthh@gmail.com"
+  },
+  "keywords": [
+    "sdet",
+    "test-intelligence",
+    "flaky-tests",
+    "failure-clustering",
+    "quality-engineering",
+    "genai-testing"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "bin"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "check": "npm run test",
+    "prepack": "npm run check"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "bin": {
+    "sdetflow-insights": "./bin/sdetflow-insights.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdetflow/sdetflow.git",
+    "directory": "packages/insights"
+  },
+  "homepage": "https://github.com/sdetflow/sdetflow/tree/main/packages/insights#readme",
+  "bugs": {
+    "url": "https://github.com/sdetflow/sdetflow/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
