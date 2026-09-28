@@ -6,7 +6,7 @@ on:
       package:
         description: Package to publish
         required: true
-        default: playwright
+        default: ai
         type: choice
         options:
           - playwright
