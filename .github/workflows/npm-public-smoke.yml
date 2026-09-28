@@ -1,0 +1,50 @@
+name: Public npm Consumer Smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/npm-public-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Verify public versions
+        run: |
+          test "$(npm view @sdetflow/playwright@0.2.0 version)" = "0.2.0"
+          test "$(npm view @sdetflow/ai@0.2.0 version)" = "0.2.0"
+          test "$(npm view @sdetflow/insights@0.2.0 version)" = "0.2.0"
+
+      - name: Install from public npm registry
+        run: |
+          mkdir consumer
+          cd consumer
+          npm init -y
+          npm install @sdetflow/ai@0.2.0 @sdetflow/insights@0.2.0
+          npm install --save-dev @playwright/test @sdetflow/playwright@0.2.0
+
+      - name: Smoke import public packages
+        run: |
+          cd consumer
+          node --input-type=module <<'NODE'
+          import { createAIConfig } from '@sdetflow/ai';
+          import { summarizeRun } from '@sdetflow/insights';
+          import { createConfig } from '@sdetflow/playwright';
+
+          if (createAIConfig().enabled !== false) throw new Error('AI safe default failed');
+          if (summarizeRun([]).total !== 0) throw new Error('Insights smoke failed');
+          if (createConfig().ai.enabled !== false) throw new Error('Playwright safe default failed');
+
+          console.log('All public SDETFlow npm packages installed and imported successfully.');
+          NODE
