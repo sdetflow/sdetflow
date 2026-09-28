@@ -54,6 +54,35 @@ jobs:
           printf '%s' "$MAVEN_GPG_PRIVATE_KEY" | gpg --batch --import
           gpg --batch --list-secret-keys --keyid-format LONG
 
+      - name: Publish signing key to Central-supported keyservers
+        shell: bash
+        run: |
+          set -euo pipefail
+          FPR="$(gpg --batch --with-colons --fingerprint sumantthh@gmail.com | awk -F: '$1=="fpr"{print $10; exit}')"
+          test -n "$FPR"
+          echo "Publishing public signing key $FPR to supported keyservers."
+          gpg --batch --keyserver keyserver.ubuntu.com --send-keys "$FPR" || true
+          gpg --batch --keyserver pgp.mit.edu --send-keys "$FPR" || true
+          gpg --batch --keyserver keys.openpgp.org --send-keys "$FPR" || true
+
+          VERIFY_HOME="$RUNNER_TEMP/gpg-keyserver-verify"
+          mkdir -p "$VERIFY_HOME"
+          chmod 700 "$VERIFY_HOME"
+          for attempt in {1..12}; do
+            if gpg --batch --homedir "$VERIFY_HOME" --keyserver keyserver.ubuntu.com --recv-keys "$FPR"; then
+              echo "Public key is retrievable from keyserver.ubuntu.com."
+              break
+            fi
+            if [[ "$attempt" == "12" ]]; then
+              echo "Public key did not become retrievable from keyserver.ubuntu.com in time."
+              exit 1
+            fi
+            echo "Waiting for keyserver propagation ($attempt/12)..."
+            sleep 10
+          done
+
+          sleep 30
+
       - name: Test Java SDK
         run: ./packages/api-java/build.sh
 
