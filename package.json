@@ -2,7 +2,7 @@
   "name": "sdetflow-monorepo",
   "private": true,
   "version": "0.2.0",
-  "description": "SDETFlow \u2014 open-source automation platforms and GenAI-powered quality engineering tools by Sumanth Gumedelli.",
+  "description": "SDETFlow \u2014 open-source test automation, GenAI-powered quality engineering, and Agentic AI tools by Sumanth Gumedelli.",
   "workspaces": [
     "packages/*"
   ],

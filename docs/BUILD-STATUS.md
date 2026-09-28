@@ -12,13 +12,13 @@ SDETFlow v0.2.0 is a **production-intent, pre-publication candidate**. The libra
 | Component | Verification |
 |---|---|
 | `@sdetflow/playwright` | 32 automated tests passing; TypeScript build; npm pack; clean consumer import |
-| `@sdetflow/ai` | 25 automated tests passing; provider-contract fakes; TypeScript build; npm pack; clean consumer import |
+| `@sdetflow/ai` | 43 automated tests passing; provider-contract fakes; Agentic AI safety/orchestration tests; TypeScript build; npm pack; clean consumer import |
 | `@sdetflow/insights` | 14 automated tests passing; TypeScript build; npm pack; clean consumer import; CLI packaged |
 | `sdetflow-api` | 12 local HTTP integration checks passing; Java 17 JAR + sources JAR built; clean consumer compile/run |
 | `sdet_flow` | 12 tests / 31 assertions passing; Gem built; isolated `GEM_HOME` install/import |
 | Website | static internal-link/style/content verification passing |
 
-Total executable checks represented above: **95 tests/checks**, plus Ruby assertions and clean-consumer packaging verification.
+Total executable checks represented above: **113 tests/checks**, plus Ruby assertions and clean-consumer packaging verification.
 
 ## Production-oriented capabilities now implemented
 
@@ -42,6 +42,8 @@ Total executable checks represented above: **95 tests/checks**, plus Ruby assert
 - per-call/day cost controls through a usage-ledger interface;
 - credential/PII redaction and prompt-injection boundary wrappers;
 - failure triage, test-design, log-analysis and accessibility analyzers;
+- host-controlled Agentic Quality Engineering runtime with registered tools, strict decisions, validation, timeouts, max-step limits and approval gates;
+- tool outputs treated as untrusted data and redacted/bounded before model reuse;
 - live-contract CI fixture prepared for user-owned keys/models.
 
 ### Insights
@@ -70,7 +72,7 @@ Total executable checks represented above: **95 tests/checks**, plus Ruby assert
 
 ## External release gates before public "production-proven" wording
 
-1. Push to the public GitHub repository and make the Node/Java/Ruby CI matrix green.
+1. Public GitHub repository is bootstrapped; make the latest Node/Java/Ruby CI matrix green.
 2. Run the real Playwright browser workflow on Chromium, Firefox and WebKit.
 3. Run live OpenAI/Gemini contract checks with user-owned API keys, approved models, and cost limits.
 4. Add GitHub secret scanning/push protection and review repository history before first public push.

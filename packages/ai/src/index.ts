@@ -9,6 +9,8 @@ export { TestDesignAnalyzer, LogAnalyzer, AccessibilityAnalyzer, QualityEngineer
 export { MemoryUsageLedger } from './ledger.js';
 export { redact, redactUnknown } from './redaction.js';
 export { AIProviderError, AIBudgetError } from './errors.js';
+export { AgenticQualityEngineer, agenticSystemPrompt } from './agentic.js';
+export type { AgentApproval, AgentApprovalRequest, AgentDecision, AgentEvent, AgentGenerationClient, AgentRunResult, AgentStepRecord, AgentTool, AgentToolContext, AgentToolSensitivity, AgenticConfig, AgenticQualityEngineerOptions } from './agentic.js';
 export type {
   AIProvider, AccessibilityExplanationResult, BudgetPolicy, CircuitBreakerPolicy, ClientEvent, ConcurrencyPolicy,
   FailureCategory, FailureDiagnostic, FailureTriageResult, GeneratedTestCase, GenerationRequest, GenerationResult,

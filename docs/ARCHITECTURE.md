@@ -29,8 +29,9 @@ SDETFlow separates deterministic testing capabilities from optional GenAI capabi
             |                               |
       +-----v------+                  +-----v---------+
       | SDETFlow AI|                  | SDETFlow      |
-      | opt-in     |                  | Insights      |
-      +-----+------+                  +---------------+
+      | GenAI +    |                  | Insights      |
+      | Agentic QE |                  +---------------+
+      +-----+------+
             |
    +--------+---------+------------------+
    |                  |                  |
@@ -49,6 +50,8 @@ Owns test execution, smart locator fallback, retries, configuration, artifacts, 
 ### AI layer
 
 Consumes explicitly selected, sanitized diagnostic context. It may classify failures, summarize evidence, suggest test ideas, or recommend likely causes. It must not silently change a passing/failing test outcome.
+
+The Agentic Quality Engineering runtime is host-controlled: the model can propose only registered tools, while the application validates inputs, enforces allowlists, applies timeouts, requests human approval for configured sensitivity levels, redacts/bounds observations, and caps the number of steps. Tool output is treated as untrusted data before it is returned to the model. The runtime does not provide arbitrary shell execution.
 
 ### Insights layer
 

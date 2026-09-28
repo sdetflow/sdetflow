@@ -8,13 +8,14 @@
 - [x] Gemini Interactions adapter
 - [x] AI routing / retry / fallback / budgets / rate controls / circuit breaker
 - [x] AI failure triage, test design, log analysis, accessibility explanation
+- [x] host-controlled Agentic AI orchestration with tool allowlists, approval gates, timeouts and prompt-injection boundaries
 - [x] Java API SDK core + JSON-path/schema assertions
 - [x] Ruby Gem core + Capybara/Watir adapters
 - [x] multi-format Insights ingestion + CLI + JSONL persistence abstraction
 - [x] portfolio/docs site source
 - [x] clean-consumer artifact verification
 - [x] GitHub CI templates
-- [ ] bootstrap public GitHub repository
+- [x] bootstrap public GitHub repository
 - [ ] run real Playwright Chromium/Firefox/WebKit CI
 - [ ] run live OpenAI/Gemini contract CI with protected keys
 - [ ] publish npm packages

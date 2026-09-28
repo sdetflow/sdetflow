@@ -7,6 +7,7 @@ export type QualityTask =
   | 'accessibility-explanation'
   | 'locator-analysis'
   | 'risk-regression'
+  | 'agentic-orchestration'
   | 'general';
 
 export interface GenerationRequest {

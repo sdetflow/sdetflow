@@ -28,7 +28,8 @@
 - per-call/day budget controls and pluggable usage ledger;
 - privacy redaction and untrusted-artifact boundaries;
 - failure triage, test-design, log-analysis and accessibility analyzers;
-- 25 automated tests passing;
+- host-controlled Agentic AI runtime with registered tools, validation, step/time bounds, untrusted-output boundaries and human approval gates;
+- 43 automated tests passing;
 - npm package + clean consumer smoke verified;
 - live provider contract fixture prepared.
 
@@ -66,4 +67,4 @@
 
 ## Current local verification
 
-95 executable package/integration checks are passing, plus clean-consumer artifact verification and website static validation. See `docs/BUILD-STATUS.md` for precise scope and external CI/registry gates.
+113 executable package/integration checks are passing, plus clean-consumer artifact verification and website static validation. See `docs/BUILD-STATUS.md` for precise scope and external CI/registry gates.

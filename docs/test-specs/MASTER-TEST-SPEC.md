@@ -104,6 +104,26 @@ Purpose: define release behavior **before implementation** for every SDETFlow pr
 | AI-A11Y-001 | P1 | No | Axe explanation | Axe violations supplied | Explanation preserves rule IDs/evidence and separates advice from facts |
 | AI-LOG-001 | P1 | Yes | Large log truncation | Input exceeds configured size | Deterministic truncation/chunk policy applied; budget respected |
 | AI-RES-001 | P0 | Yes | All providers unavailable | Simulate outage | Caller receives graceful unavailable result; base test execution unaffected |
+| AI-AGENT-001 | P0 | Yes | Final answer without tool | Model returns valid final decision | Run completes without invoking a tool |
+| AI-AGENT-002 | P0 | Yes | Registered low-risk tool | Model proposes registered read-only tool | Tool executes once; sanitized observation is returned to planner |
+| AI-AGENT-003 | P0 | Yes | Unregistered tool | Model proposes unknown tool | Tool is never executed; error is recorded and host remains in control |
+| AI-AGENT-004 | P0 | Yes | Explicit allowed-tools policy | Registered tool omitted from allowlist | Tool is blocked even though registered |
+| AI-AGENT-005 | P0 | Yes | High-sensitivity approval | Model proposes high-sensitivity tool | Explicit approval required before execution |
+| AI-AGENT-006 | P0 | Yes | Missing approver | High-sensitivity tool; no approval handler | Fail closed with approval denied; no side effect |
+| AI-AGENT-007 | P0 | Yes | Approval input privacy | Proposed tool input contains secret/PII | Approval callback receives redacted values |
+| AI-AGENT-008 | P0 | Yes | Tool input validation | Validator rejects unsafe/destructive input | Tool is not executed; validation error recorded |
+| AI-AGENT-009 | P0 | Yes | Tool observation redaction | Tool returns secret-bearing data | Secrets masked before transcript/model reuse |
+| AI-AGENT-010 | P0 | Yes | Tool observation bound | Tool returns oversized output | Observation truncated to configured bound with explicit marker |
+| AI-AGENT-011 | P0 | Yes | Untrusted tool-output boundary | Tool output contains prompt-injection text | Output remains inside untrusted-data boundary; host/system policy unchanged |
+| AI-AGENT-012 | P0 | Yes | Malformed decision | Model returns prose/fenced/non-JSON decision | Fail closed; no tool execution |
+| AI-AGENT-013 | P0 | Yes | Maximum step limit | Model keeps proposing tools | Run stops deterministically at configured max steps |
+| AI-AGENT-014 | P0 | Yes | Tool timeout | Tool exceeds configured timeout | Tool is aborted/timed out; run does not hang |
+| AI-AGENT-015 | P1 | Yes | Recoverable tool failure | Tool throws; continue policy enabled | Error recorded; planner may continue to safe final answer |
+| AI-AGENT-016 | P0 | Yes | Fail-fast tool failure | Tool throws; continue policy disabled | Run stops with structured failed status |
+| AI-AGENT-017 | P1 | Yes | Tool registration validation | Invalid or duplicate tool names | Constructor rejects configuration before a run starts |
+| AI-AGENT-018 | P0 | Yes | Goal/context privacy | Goal/context contains secret/PII | Sensitive values redacted before model planning |
+| AI-AGENT-019 | P1 | Yes | Sensitivity policy | Medium tool under default policy | No unnecessary approval unless configured; high remains protected |
+| AI-AGENT-020 | P1 | Yes | Auditable lifecycle | Tool run succeeds | Decision/tool/approval/completion events emitted in deterministic order |
 
 ---
 
