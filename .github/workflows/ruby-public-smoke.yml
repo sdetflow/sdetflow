@@ -1,0 +1,28 @@
+name: Public RubyGems Consumer Smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ruby-public-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: false
+
+      - name: Install sdet_flow from public RubyGems
+        run: gem install sdet_flow -v 0.2.0 --no-document
+
+      - name: Verify version and import
+        run: |
+          ruby -e "require 'sdet_flow'; abort('wrong version') unless SdetFlow::VERSION == '0.2.0'; puts 'Verified sdet_flow ' + SdetFlow::VERSION"
