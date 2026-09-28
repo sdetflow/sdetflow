@@ -2,8 +2,12 @@ name: Publish Java SDK to Maven Central
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'java-v*'
+    paths:
+      - '.release/java-v0.2.0.trigger'
   workflow_dispatch:
 
 permissions:
@@ -26,6 +30,21 @@ jobs:
           server-username: CENTRAL_USERNAME
           server-password: CENTRAL_PASSWORD
 
+      - name: Validate release secrets
+        shell: bash
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          test -n "$CENTRAL_USERNAME"
+          test -n "$CENTRAL_PASSWORD"
+          test -n "$MAVEN_GPG_PRIVATE_KEY"
+          test -n "$MAVEN_GPG_PASSPHRASE"
+          echo "Required Maven Central release secrets are present."
+
       - name: Import Maven signing key
         shell: bash
         env:
@@ -33,6 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           printf '%s' "$MAVEN_GPG_PRIVATE_KEY" | gpg --batch --import
+          gpg --batch --list-secret-keys --keyid-format LONG
 
       - name: Test Java SDK
         run: ./packages/api-java/build.sh
