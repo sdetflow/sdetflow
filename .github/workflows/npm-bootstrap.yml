@@ -6,7 +6,7 @@ on:
       package:
         description: Package to publish
         required: true
-        default: ai
+        default: insights
         type: choice
         options:
           - playwright
@@ -83,14 +83,14 @@ jobs:
           VERSION: ${{ steps.pkg.outputs.version }}
         run: |
           set -e
-          for attempt in {1..12}; do
+          for attempt in {1..30}; do
             found="$(npm view "$PKG@$VERSION" version --registry=https://registry.npmjs.org 2>/dev/null || true)"
             if [[ "$found" == "$VERSION" ]]; then
               echo "Verified public package: $PKG@$found"
               exit 0
             fi
-            echo "Registry has not propagated $PKG@$VERSION yet (attempt $attempt/12); waiting 10s..."
+            echo "Registry has not propagated $PKG@$VERSION yet (attempt $attempt/30); waiting 10s..."
             sleep 10
           done
-          echo "Package publish may have succeeded, but public registry verification did not complete within 120 seconds."
+          echo "Package publish may have succeeded, but public registry verification did not complete within 300 seconds."
           exit 1
