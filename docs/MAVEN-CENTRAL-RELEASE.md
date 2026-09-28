@@ -2,7 +2,7 @@
 
 SDETFlow's Java SDK is prepared for Maven Central as:
 
-`io.github.sumanthh-sdet:sdetflow-api:0.2.0`
+`io.github.sumantthh-sdet:sdetflow-api:0.2.0`
 
 The build already produces the required primary JAR, sources JAR, and Javadoc JAR. The release profile also configures GPG signing and the Sonatype Central Publishing Maven Plugin.
 
@@ -10,11 +10,11 @@ The build already produces the required primary JAR, sources JAR, and Javadoc JA
 
 The Central Portal account has a verified free GitHub namespace:
 
-`io.github.sumanthh-sdet`
+`io.github.sumantthh-sdet`
 
 The Java artifact therefore publishes as:
 
-`io.github.sumanthh-sdet:sdetflow-api:0.2.0`
+`io.github.sumantthh-sdet:sdetflow-api:0.2.0`
 
 The Java source package remains `io.sdetflow.api`. Maven publication coordinates do not need to match the Java package namespace.
 
