@@ -1,0 +1,33 @@
+name: Website v2 CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [website-v2-admin]
+    paths:
+      - "website-v2/**"
+      - ".github/workflows/website-v2-ci.yml"
+  pull_request:
+    paths:
+      - "website-v2/**"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website-v2
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: website-v2/package.json
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
