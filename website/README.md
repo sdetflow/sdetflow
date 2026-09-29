@@ -1,28 +1,26 @@
 # Sumanth Gumedelli / SDETFlow website draft
 
-Static, dependency-free portfolio draft built from the same documentation source used by the repository.
+Static, dependency-free portfolio site built from the same public release documentation used by the repository.
 
 ## Important release toggle
 
-The draft intentionally contains:
+The site currently retains:
 
 ```html
 <meta name="robots" content="noindex,nofollow">
 ```
 
-and `robots.txt` disallows crawling. This prevents premature indexing before public package links, GitHub URLs, domain, and career chronology are verified.
+and `robots.txt` disallows crawling. All package and GitHub release links are now public and verified. Search indexing remains disabled only until the final production domain is selected.
 
 Before public deployment:
 
-1. choose/register the final domain;
-2. publish/verify GitHub and package registry links;
-3. validate all public claims;
-4. remove `noindex,nofollow`;
-5. change `robots.txt` to allow crawling;
-6. add canonical URLs and `og:url`;
-7. generate sitemap.xml;
-8. run Lighthouse/accessibility checks on the deployed host;
-9. connect Google Search Console after deployment.
+1. choose the final domain (a free GitHub Pages URL is acceptable);
+2. remove `noindex,nofollow`;
+3. change `robots.txt` to allow crawling;
+4. add canonical URLs and `og:url`;
+5. generate sitemap.xml;
+6. run Lighthouse/accessibility checks on the deployed host;
+7. connect Google Search Console after deployment.
 
 ## Local preview
 
