@@ -12,15 +12,11 @@ The site currently retains:
 
 and `robots.txt` disallows crawling. All package and GitHub release links are now public and verified. Search indexing remains disabled only until the final production domain is selected.
 
-Before public deployment:
-
-1. choose the final domain (a free GitHub Pages URL is acceptable);
-2. remove `noindex,nofollow`;
-3. change `robots.txt` to allow crawling;
-4. add canonical URLs and `og:url`;
-5. generate sitemap.xml;
-6. run Lighthouse/accessibility checks on the deployed host;
-7. connect Google Search Console after deployment.
+Production checklist:
+1. Enable GitHub Pages for this repository with **GitHub Actions** as the source.
+2. Confirm the Pages deployment succeeds.
+3. Run Lighthouse/accessibility checks on the deployed host.
+4. Add the site to Google Search Console and submit `sitemap.xml`.
 
 ## Local preview
 
