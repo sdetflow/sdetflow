@@ -8,9 +8,10 @@ import {
 
 const iconMap: Record<string, any> = { BrainCircuit, CloudCog, Gauge, Workflow };
 
-function SmartLink({ href, children, className = "" }: { href: string; children: React.ReactNode; className?: string }) {
+function SmartLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
+  const { href, children, className = "", ...rest } = props;
   const external = href.startsWith("http") || href.startsWith("mailto:");
-  return <a className={className} href={href} target={external && !href.startsWith("mailto:") ? "_blank" : undefined} rel="noreferrer">{children}</a>;
+  return <a {...rest} className={className} href={href} target={external && !href.startsWith("mailto:") ? "_blank" : undefined} rel="noreferrer">{children}</a>;
 }
 
 function SocialIcon({ label }: { label: string }) {
