@@ -33,10 +33,11 @@ required = [
     'Sumanth Gumedelli',
     'GenAI-powered quality engineering tools',
     'sumantthh@gmail.com',
-    'noindex,nofollow',
+    'https://sdetflow.github.io/sdetflow/',
+    'index,follow',
 ]
 for item in required:
-    if item not in index: errors.append(f'index.html missing required draft content: {item}')
+    if item not in index: errors.append(f'index.html missing required production content: {item}')
 
 if errors:
     for error in errors: print('ERROR:', error)
