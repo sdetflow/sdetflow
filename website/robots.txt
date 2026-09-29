@@ -1,3 +1,4 @@
-# DRAFT MODE: keep this site out of search indexes until public package/repository links and final chronology are verified.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://sdetflow.github.io/sdetflow/sitemap.xml
