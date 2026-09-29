@@ -1,0 +1,90 @@
+name: Publish Java SDK to Maven Central
+
+on:
+  push:
+    tags:
+      - 'java-v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          server-id: central
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_PASSWORD
+
+      - name: Validate release secrets
+        shell: bash
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          test -n "$CENTRAL_USERNAME"
+          test -n "$CENTRAL_PASSWORD"
+          test -n "$MAVEN_GPG_PRIVATE_KEY"
+          test -n "$MAVEN_GPG_PASSPHRASE"
+          echo "Required Maven Central release secrets are present."
+
+      - name: Import Maven signing key
+        shell: bash
+        env:
+          MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$MAVEN_GPG_PRIVATE_KEY" | gpg --batch --import
+          gpg --batch --list-secret-keys --keyid-format LONG
+
+      - name: Publish signing key to Central-supported keyservers
+        shell: bash
+        run: |
+          set -euo pipefail
+          FPR="$(gpg --batch --with-colons --fingerprint sumantthh@gmail.com | awk -F: '$1=="fpr"{print $10; exit}')"
+          test -n "$FPR"
+          echo "Publishing public signing key $FPR to supported keyservers."
+          gpg --batch --keyserver keyserver.ubuntu.com --send-keys "$FPR" || true
+          gpg --batch --keyserver pgp.mit.edu --send-keys "$FPR" || true
+          gpg --batch --keyserver keys.openpgp.org --send-keys "$FPR" || true
+
+          VERIFY_HOME="$RUNNER_TEMP/gpg-keyserver-verify"
+          mkdir -p "$VERIFY_HOME"
+          chmod 700 "$VERIFY_HOME"
+          for attempt in {1..12}; do
+            if gpg --batch --homedir "$VERIFY_HOME" --keyserver keyserver.ubuntu.com --recv-keys "$FPR"; then
+              echo "Public key is retrievable from keyserver.ubuntu.com."
+              break
+            fi
+            if [[ "$attempt" == "12" ]]; then
+              echo "Public key did not become retrievable from keyserver.ubuntu.com in time."
+              exit 1
+            fi
+            echo "Waiting for keyserver propagation ($attempt/12)..."
+            sleep 10
+          done
+
+          sleep 30
+
+      - name: Test Java SDK
+        run: ./packages/api-java/build.sh
+
+      - name: Publish signed artifacts to Maven Central
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+        run: mvn -B -f packages/api-java/pom.xml -Pcentral-release clean deploy

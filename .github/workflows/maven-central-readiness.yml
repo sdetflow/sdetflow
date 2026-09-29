@@ -1,0 +1,42 @@
+name: Maven Central Readiness
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/api-java/**'
+      - '.github/workflows/maven-central-readiness.yml'
+  pull_request:
+    paths:
+      - 'packages/api-java/**'
+      - '.github/workflows/maven-central-readiness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Run Java SDK test harness
+        run: ./packages/api-java/build.sh
+
+      - name: Build Maven Central artifacts without signing
+        run: mvn -B -f packages/api-java/pom.xml -Pcentral-release -Dgpg.skip=true clean package
+
+      - name: Verify required release artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f packages/api-java/target/sdetflow-api-0.2.0.jar
+          test -f packages/api-java/target/sdetflow-api-0.2.0-sources.jar
+          test -f packages/api-java/target/sdetflow-api-0.2.0-javadoc.jar
+          echo "Maven Central artifact set is present."

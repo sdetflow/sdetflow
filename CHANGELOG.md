@@ -8,6 +8,7 @@ All notable changes follow Semantic Versioning.
 - production-oriented Playwright evidence collector, bounded diagnostics, seeded test-data utilities and session facade;
 - stronger cross-package secret/JWT/provider-key redaction;
 - GenAI concurrency/rate controls, circuit breaker, persistent usage-ledger interface and additional test-design/log/accessibility analyzers;
+- host-controlled Agentic AI quality-engineering runtime with registered tools, strict JSON decisions, validation, timeouts, max-step limits, untrusted-output boundaries and human approval gates;
 - Gemini Interactions usage parsing and richer OpenAI provider options;
 - Insights parsers for JUnit XML, Cucumber JSON and Allure results, run summaries and JSONL persistence adapter;
 - Java dependency-free JSON parser, JSON path/schema assertions, basic auth, default headers, correlation IDs, idempotency-key support and retry-after behavior;
@@ -17,7 +18,7 @@ All notable changes follow Semantic Versioning.
 
 ### Verification
 - `@sdetflow/playwright`: 32 tests passing.
-- `@sdetflow/ai`: 25 tests passing.
+- `@sdetflow/ai`: 43 tests passing.
 - `@sdetflow/insights`: 14 tests passing.
 - Java SDK: 12 local HTTP integration checks passing.
 - Ruby Gem: 12 tests / 31 assertions passing.

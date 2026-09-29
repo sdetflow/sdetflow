@@ -1,0 +1,77 @@
+name: Stage npm Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package to stage
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - playwright
+          - ai
+          - insights
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    environment: release
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - playwright
+          - ai
+          - insights
+    steps:
+      - name: Respect selected package
+        id: selected
+        shell: bash
+        run: |
+          if [[ "${{ inputs.package }}" == "all" || "${{ inputs.package }}" == "${{ matrix.package }}" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v6
+        if: steps.selected.outputs.run == 'true'
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        if: steps.selected.outputs.run == 'true'
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Use current npm
+        if: steps.selected.outputs.run == 'true'
+        run: npm install --global npm@latest
+
+      - name: Install
+        if: steps.selected.outputs.run == 'true'
+        run: npm install --ignore-scripts
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Test
+        if: steps.selected.outputs.run == 'true'
+        run: npm test
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Inspect package contents
+        if: steps.selected.outputs.run == 'true'
+        run: npm pack --dry-run
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Stage package on npm
+        if: steps.selected.outputs.run == 'true'
+        run: npm stage publish --access public
+        working-directory: packages/${{ matrix.package }}

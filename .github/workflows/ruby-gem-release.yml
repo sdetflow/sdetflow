@@ -1,0 +1,41 @@
+name: Publish Ruby Gem
+
+on:
+  push:
+    tags:
+      - 'ruby-v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: false
+
+      - name: Test
+        run: ruby -Ilib test/sdet_flow_test.rb
+        working-directory: packages/ruby
+
+      - name: Build gem
+        run: gem build sdet_flow.gemspec
+        working-directory: packages/ruby
+
+      - name: Configure RubyGems trusted-publishing credentials
+        uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a
+
+      - name: Publish gem
+        run: gem push sdet_flow-0.2.0.gem
+        working-directory: packages/ruby

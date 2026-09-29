@@ -1,7 +1,7 @@
 {
   "name": "@sdetflow/ai",
   "version": "0.2.0",
-  "description": "Provider-agnostic GenAI-powered quality engineering SDK with redaction, budgets, retries, fallback, circuit breaking and production-oriented SDET analyzers.",
+  "description": "Provider-agnostic GenAI-powered and Agentic AI quality engineering SDK with redaction, budgets, fallback, analyzers, registered tool execution and human approval gates.",
   "type": "module",
   "license": "Apache-2.0",
   "author": {
@@ -21,7 +21,12 @@
     "log-analysis",
     "accessibility-testing",
     "llm-routing",
-    "provider-fallback"
+    "provider-fallback",
+    "agentic-ai",
+    "ai-agents",
+    "tool-calling",
+    "human-in-the-loop",
+    "agent-orchestration"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

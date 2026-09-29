@@ -1,22 +1,27 @@
 # Publishing SDETFlow
 
-## Order
+## Current release gates
 
-1. Push the monorepo to GitHub and make all CI green.
-2. Validate `@sdetflow` npm scope ownership, then publish `@sdetflow/playwright`, `@sdetflow/ai`, and `@sdetflow/insights`.
-3. Publish `sdet_flow` to RubyGems.
-4. Configure Sonatype Central Portal namespace/signing for `io.sdetflow` and publish `sdetflow-api`.
-5. Create a GitHub Release and tag matching the public version.
-6. Activate package links on the portfolio website and remove `noindex` only when the public links and career chronology are correct.
+1. GitHub monorepo is public and CI is green.
+2. Chromium/Firefox/WebKit Playwright matrix is green.
+3. Live OpenAI and Gemini provider contracts have passed with repository secrets masked in logs.
+4. Registry ownership and first-publish bootstrap remain.
 
-## Required secrets
+## Release order
 
-Use GitHub Actions repository/environment secrets; never paste secrets into source files.
+1. Bootstrap the three npm packages under the `@sdetflow` scope.
+2. Configure npm Trusted Publishing to use `.github/workflows/npm-publish.yml` and the `release` environment.
+3. Configure a RubyGems pending Trusted Publisher and publish `sdet_flow` through `.github/workflows/ruby-gem-release.yml`.
+4. Finalize the Maven Central namespace, signing, source/Javadoc artifacts, and Central Publishing Maven Plugin before publishing `sdetflow-api`.
+5. Create a GitHub Release/tag matching the public package version.
+6. Add canonical package links to README and website.
+7. Remove website `noindex` only after public links and career chronology are correct.
 
-- npm automation token or trusted publishing configuration;
-- RubyGems API key or trusted publishing configuration;
-- Maven Central credentials/signing material;
-- OpenAI/Gemini keys only for isolated live-contract CI with strict spending limits.
+See `docs/REGISTRY-SETUP.md` for the exact maintainer steps.
+
+## Security
+
+Prefer OIDC trusted publishing over long-lived registry tokens wherever supported. Keep all credentials out of source files and CI logs.
 
 ## Resume rule
 

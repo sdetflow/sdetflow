@@ -6,13 +6,13 @@ A Java 17+ API automation SDK from **SDETFlow** for reusable enterprise API test
 
 ```xml
 <dependency>
-  <groupId>io.sdetflow</groupId>
+  <groupId>io.github.sumantthh-sdet</groupId>
   <artifactId>sdetflow-api</artifactId>
   <version>0.2.0</version>
 </dependency>
 ```
 
-Coordinates become installable from Maven Central after registry publication.
+Publishing coordinates: `io.github.sumantthh-sdet:sdetflow-api:0.2.0`. They become installable from Maven Central after the first Central release completes.
 
 ## Example
 

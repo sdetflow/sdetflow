@@ -1,0 +1,76 @@
+name: Public Maven Consumer Smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/maven-public-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Create clean Maven consumer
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p consumer/src/main/java/example
+          cat > consumer/pom.xml <<'POM'
+          <project xmlns="http://maven.apache.org/POM/4.0.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+            <modelVersion>4.0.0</modelVersion>
+            <groupId>example</groupId>
+            <artifactId>sdetflow-consumer-smoke</artifactId>
+            <version>1.0.0</version>
+            <properties>
+              <maven.compiler.release>17</maven.compiler.release>
+            </properties>
+            <dependencies>
+              <dependency>
+                <groupId>io.github.sumantthh-sdet</groupId>
+                <artifactId>sdetflow-api</artifactId>
+                <version>0.2.0</version>
+              </dependency>
+            </dependencies>
+          </project>
+          POM
+
+          cat > consumer/src/main/java/example/Smoke.java <<'JAVA'
+          package example;
+
+          import io.sdetflow.api.RetryPolicy;
+          import io.sdetflow.api.SdetFlowApiClient;
+
+          public final class Smoke {
+              public static void main(String[] args) {
+                  var retry = RetryPolicy.defaults();
+                  if (retry.maxAttempts() != 3) {
+                      throw new IllegalStateException("Unexpected RetryPolicy defaults");
+                  }
+                  var client = SdetFlowApiClient.builder("https://example.com").build();
+                  if (client == null) {
+                      throw new IllegalStateException("Unable to create SDETFlow client");
+                  }
+                  System.out.println("Verified public Maven artifact: io.github.sumantthh-sdet:sdetflow-api:0.2.0");
+              }
+          }
+          JAVA
+
+      - name: Resolve and compile from Maven Central
+        run: mvn -B -U -f consumer/pom.xml clean compile
+
+      - name: Run clean consumer smoke
+        run: |
+          mvn -B -f consumer/pom.xml dependency:build-classpath -Dmdep.outputFile=classpath.txt
+          java -cp "consumer/target/classes:$(cat consumer/classpath.txt)" example.Smoke

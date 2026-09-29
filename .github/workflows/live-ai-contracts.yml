@@ -23,7 +23,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          SDETFLOW_OPENAI_MODEL: ${{ vars.SDETFLOW_OPENAI_MODEL }}
-          SDETFLOW_GEMINI_MODEL: ${{ vars.SDETFLOW_GEMINI_MODEL }}
+          SDETFLOW_OPENAI_MODEL: ${{ vars.SDETFLOW_OPENAI_MODEL || 'gpt-5.6-luna' }}
+          SDETFLOW_GEMINI_MODEL: ${{ vars.SDETFLOW_GEMINI_MODEL || 'gemini-3.8-flash' }}
         run: node test-live/run.mjs
         working-directory: packages/ai
