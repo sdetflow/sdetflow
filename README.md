@@ -8,6 +8,8 @@
 
 **Open-source test automation, GenAI-powered quality engineering, and Agentic AI tools by Sumanth Gumedelli.**
 
+**Current release:** [SDETFlow v0.2.0](https://github.com/sdetflow/sdetflow/releases/tag/v0.2.0)
+
 SDETFlow is a multi-language quality-engineering ecosystem focused on reusable automation architecture rather than one-off test scripts. The v0.2 line contains independently consumable TypeScript/Playwright, GenAI + Agentic AI, test-intelligence, Java API, and Ruby automation libraries with deterministic behavior, privacy controls, packaging checks, and CI-ready documentation.
 
 > **Release status:** all five SDETFlow v0.2.0 libraries are publicly published: three npm packages, the `sdet_flow` RubyGem, and the Java `sdetflow-api` artifact on Maven Central. Clean public-registry consumer install/import/compile smoke tests are green, along with GitHub CI, the Chromium/Firefox/WebKit browser matrix, packaging checks, and live OpenAI/Gemini provider contracts.
