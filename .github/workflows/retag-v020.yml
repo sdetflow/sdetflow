@@ -1,0 +1,25 @@
+name: One-time sanitize v0.2.0 tag
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/retag-v020.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  retag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sanitized commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 70423cba7e4f5056e17c38e7fb53e9a1108e2e3d
+
+      - name: Move v0.2.0 to sanitized commit
+        run: |
+          git tag -f v0.2.0 70423cba7e4f5056e17c38e7fb53e9a1108e2e3d
+          git push origin --force refs/tags/v0.2.0
