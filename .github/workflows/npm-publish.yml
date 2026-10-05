@@ -40,12 +40,12 @@ jobs:
             echo "run=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         if: steps.selected.outputs.run == 'true'
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         if: steps.selected.outputs.run == 'true'
         with:
           node-version: '24'
